@@ -382,7 +382,13 @@ namespace SQLite.Net
         {
             var map = GetMapping(ty, createFlags);
 
-            var query = "create table if not exists \"" + map.TableName + "\"(\n";
+            var useFts3 = (createFlags & CreateFlags.FullTextSearch3) != 0;
+            var useFts4 = (createFlags & CreateFlags.FullTextSearch4) != 0;
+            var useFts = useFts3 || useFts4;
+            var virtualKeyword = useFts ? "virtual " : string.Empty;
+            var usingKeyword = useFts3 ? "using fts3 " : useFts4 ? "using fts4 " : string.Empty;
+
+            var query = "create " + virtualKeyword + "table if not exists \"" + map.TableName + "\" " + usingKeyword + "(\n";
 
             var mapColumns = map.Columns;
 

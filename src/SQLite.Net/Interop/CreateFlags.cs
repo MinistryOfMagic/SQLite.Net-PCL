@@ -29,11 +29,12 @@ namespace SQLite.Net.Interop
     [Flags]
     public enum CreateFlags
     {
-        None = 0,
-        ImplicitPK = 1, // create a primary key for field called 'Id' (Orm.ImplicitPkName)
-        ImplicitIndex = 2, // create an index for fields ending in 'Id' (Orm.ImplicitIndexSuffix)
-        AllImplicit = 3, // do both above
-
-        AutoIncPK = 4 // force PK field to be auto inc
+        None = 0x000,
+        ImplicitPK = 0x001, // create a primary key for field called 'Id' (Orm.ImplicitPkName)
+        ImplicitIndex = 0x002, // create an index for fields ending in 'Id' (Orm.ImplicitIndexSuffix)
+        AllImplicit = 0x003, // do both above
+        AutoIncPK = 0x004, // force PK field to be auto inc
+        FullTextSearch3 = 0x100, // create virtual table using FTS3
+        FullTextSearch4 = 0x200 // create virtual table using FTS4
     }
 }
